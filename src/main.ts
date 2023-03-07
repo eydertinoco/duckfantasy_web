@@ -9,4 +9,4 @@ import './assets/scss/app.scss';
 
 const pinia = createPinia();
 
-createApp(App).use(router).use(pinia).use(PrimeVue).mount('#app')
+createApp(App).use(router).use(pinia).use(PrimeVue).mount('#app');
