@@ -16,13 +16,15 @@
 
 <script>
 import server from '@/services/config.ts';
+import {reactive} from "vue";
+import {useAuthStore} from '@/store/auth.ts';
 
 export default {
   name: "LoginView",
   data() {
     return {
-      email: null,
-      password: null
+      email: 'eydertinoco@outlook.com',
+      password: '123'
     }
   },
   methods: {
@@ -33,9 +35,12 @@ export default {
         email: this.email,
         password: this.password
       }
+      const auth = useAuthStore();
       try {
-        const data = await server.post('/auth', user);
+        const data = await server.post('/auth/login', user);
         console.log(data);
+        console.log(data.data.access_token);
+        auth.setToken(data.data.access_token);
       } catch (error) {
         console.log(error?.response?.data);
       }
