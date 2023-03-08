@@ -37,6 +37,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta?.auth) {
     const auth = useAuthStore();
     const isAuthenticated = auth.checkToken();
+    console.log(isAuthenticated);
     if (auth.token && isAuthenticated) {
       next();
     } else {
