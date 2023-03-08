@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import { useAuthStore } from "@/store/auth";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -20,13 +21,30 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/user',
     name: 'user',
-    component: () => import(/* webpackChunkName: "user" */ '../views/UserView.vue')
+    component: () => import(/* webpackChunkName: "user" */ '../views/UserView.vue'),
+    meta: {
+      auth: true,
+  }
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.meta?.auth) {
+    const auth = useAuthStore();
+    const isAuthenticated = auth.checkToken();
+    if (auth.token && isAuthenticated) {
+      next();
+    } else {
+      next({name:'login'});
+    }
+  } else {
+    next();
+  }
 })
 
 export default router

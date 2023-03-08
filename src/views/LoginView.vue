@@ -30,7 +30,6 @@ export default {
   methods: {
     async login(e) {
       e.preventDefault();
-      console.log(e);
       const user = {
         email: this.email,
         password: this.password
@@ -39,7 +38,6 @@ export default {
       try {
         const data = await server.post('/auth/login', user);
         console.log(data);
-        console.log(data.data.access_token);
         auth.setToken(data.data.access_token);
       } catch (error) {
         console.log(error?.response?.data);
