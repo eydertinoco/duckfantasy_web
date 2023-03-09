@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import server from "@/services/config";
 import PieChart from "@/components/PieChart.vue";
 
 export default {
@@ -41,6 +42,7 @@ export default {
       office: 'professor',
     }
   },
+
 }
 </script>
 

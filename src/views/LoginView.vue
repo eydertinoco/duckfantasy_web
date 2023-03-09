@@ -18,6 +18,7 @@
 import server from '@/services/config.ts';
 import {reactive} from "vue";
 import {useAuthStore} from '@/store/auth.ts';
+import {useCookies} from "vue3-cookies";
 
 export default {
   name: "LoginView",
@@ -26,6 +27,10 @@ export default {
       email: 'eydertinoco@outlook.com',
       password: '123'
     }
+  },
+  setup() {
+    const { cookies } = useCookies();
+    return { cookies };
   },
   methods: {
     async login(e) {
@@ -38,7 +43,10 @@ export default {
       try {
         const data = await server.post('/auth/login', user);
         console.log(data);
+
         auth.setToken(data.data.access_token);
+
+        window.location = "/user"
       } catch (error) {
         console.log(error?.response?.data);
       }
