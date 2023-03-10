@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import { useAuthStore } from "@/store/auth";
 
 const routes: Array<RouteRecordRaw> = [
@@ -9,17 +8,9 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "home" */ '../views/HomeView.vue')
   },
   {
-    path: '/about',
-    name: 'about',
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  },
-  {
     path: '/login',
     name: 'login',
     component: () => import(/* webpackChunkName: "login" */ '../views/LoginView.vue'),
-    meta: {
-      auth: false,
-    }
   },
   {
     path: '/user',
