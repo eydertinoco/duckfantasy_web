@@ -1,6 +1,10 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import { useAuthStore } from "@/store/auth";
 
+import * as jwt from 'jsonwebtoken';
+
+import {isJWT, IsJWT} from "class-validator";
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -27,12 +31,24 @@ const router = createRouter({
   routes
 })
 
+class UserToken
+{
+  @IsJWT()
+  token: string | undefined;
+
+  constructor(token: string | undefined) {
+    this.token = isJWT(token) ? token : undefined;
+  }
+
+}
+
 router.beforeEach((to, from, next) => {
   if (to.meta?.auth) {
     const auth = useAuthStore();
-    const isAuthenticated = auth.checkToken();
-    console.log(isAuthenticated);
-    if (auth.token && isAuthenticated) {
+
+    const verify = new UserToken(auth?.token || undefined);
+
+    if (verify.token) {
       next();
     } else {
       next({name:'login'});

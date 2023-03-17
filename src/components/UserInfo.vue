@@ -1,6 +1,6 @@
 <template>
   <div class="userInfo">
-    <img src="https://icon-library.com/images/batman-icon-png/batman-icon-png-10.jpg" alt="avatar">
+    <img src="https://cdn-icons-png.flaticon.com/512/5556/5556468.png" alt="avatar">
     <div>
       <p class="userInfo__name">{{nome}}</p>
       <p class="userInfo__email">{{email}}</p>

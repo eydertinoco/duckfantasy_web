@@ -20,7 +20,7 @@ use([
   LegendComponent,
 ]);
 
-provide(THEME_KEY, 'dark');
+provide(THEME_KEY, 'white');
 
 const option = ref({
   title: {
@@ -64,6 +64,6 @@ const option = ref({
 <style>
 .chart {
   height: 300px;
-  width: 300px;
+  width: 49vw;
 }
 </style>
