@@ -22,7 +22,39 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "user" */ '../views/UserView.vue'),
     meta: {
       auth: true,
-  }
+    }
+  },
+  {
+    path: '/novaturma',
+    name: 'novaturma',
+    component: () => import(/* webpackChunkName: "user" */ '../views/CriarTurmaView.vue'),
+    meta: {
+      auth: true,
+    }
+  },
+  {
+    path: '/minhatrilha',
+    name: 'minhatrilha',
+    component: () => import(/* webpackChunkName: "user" */ '../views/MinhaTrilhaView.vue'),
+    meta: {
+      auth: true,
+    }
+  },
+  {
+    path: '/novatrilha',
+    name: 'novatrilha',
+    component: () => import(/* webpackChunkName: "user" */ '../views/CriarTrilhaView.vue'),
+    meta: {
+      auth: true,
+    }
+  },
+  {
+    path: '/novoconteudo',
+    name: 'novoconteudo',
+    component: () => import(/* webpackChunkName: "user" */ '../views/CriarCapituloView.vue'),
+    meta: {
+      auth: true,
+    }
   }
 ]
 
