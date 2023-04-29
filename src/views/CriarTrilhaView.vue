@@ -4,13 +4,13 @@
 
     <form class="card">
       <div class="card__field">
-        <label for="nomeTurma">Nome Turma:</label>
-        <input id="nomeTurma" type="text" v-model="nomeTurma"/>
+        <label for="nomeTrilha">Nome Trilha:</label>
+        <input id="nomeTrilha" type="text" v-model="nomeTrilha"/>
       </div>
 
       <div class="card__field">
-        <label for="dataFim">Data finalização da turma:</label>
-        <input id="dataFim" type="date" v-model="dataFim">
+        <label for="descricaoTrilha">Descrição da trilha:</label>
+        <textarea id="descricaoTrilha" v-model="descricaoTrilha"/>
       </div>
 
       <button type="submit">Criar Turma</button>
@@ -21,11 +21,11 @@
 
 <script>
 export default {
-  name: "CriarTurmaView",
+  name: "CriarTrilhaView",
   data() {
     return {
-      nomeTurma: '',
-      dataFim: ''
+      nomeTrilha: '',
+      descricaoTrilha: ''
     }
   },
 }

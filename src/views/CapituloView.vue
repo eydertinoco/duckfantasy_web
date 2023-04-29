@@ -1,19 +1,19 @@
 <template>
   <div>
-    <h2>Adicionar novo capítulo</h2>
-
     <form class="card">
-      <div class="card__field">
-        <label for="nomeCapitulo">Nome do Capítulo:</label>
-        <input id="nomeCapitulo" type="text" v-model="nomeCapitulo"/>
+      <div style="background-color: gray; width: 100%;">
+        <h4>Area do Professor</h4>
+
+        <p>Adicionar Atividade</p>
+
+        <p>Graficos de Analise do Capítulo</p>
       </div>
 
-      <div class="card__field">
-        <label for="conteudoCapitulo">Conteúdo do Capítulo:</label>
-        <QuillEditor id="conteudoCapitulo" v-model="conteudoCapitulo" theme="snow" />
-      </div>
+      <h2>nomeCapitulo</h2>
 
-      <button type="submit">Adicionar Conteúdo</button>
+      <div class="card__field">
+        <p>conteudoCapitulo</p>
+      </div>
 
     </form>
   </div>
@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: "CriarCapituloView",
+  name: "CapituloView",
   data() {
     return {
       nomeCapitulo: '',

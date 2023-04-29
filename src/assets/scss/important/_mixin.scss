@@ -1,0 +1,15 @@
+@mixin for-phone-only() {
+  @media (max-width: 640.98px) { @content; }
+}
+@mixin for-tablet-only() {
+  @media (min-width: 641px) and (max-width: 1024.98px) { @content; }
+}
+@mixin for-smarth-only() {
+  @media (max-width: 1024.98px) { @content; }
+}
+@mixin for-desktop-only() {
+  @media (min-width: 1025px) { @content; }
+}
+@mixin for-desktop1441-only() {
+  @media (min-width: 1441px) { @content; }
+}

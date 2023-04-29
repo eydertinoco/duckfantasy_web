@@ -9,6 +9,11 @@
       </div>
 
       <div class="card__field">
+        <label for="dataIni">Data Inicio da turma:</label>
+        <input id="dataIni" type="date" v-model="dataIni">
+      </div>
+
+      <div class="card__field">
         <label for="dataFim">Data finalização da turma:</label>
         <input id="dataFim" type="date" v-model="dataFim">
       </div>
@@ -25,6 +30,7 @@ export default {
   data() {
     return {
       nomeTurma: '',
+      dataIni: '',
       dataFim: ''
     }
   },

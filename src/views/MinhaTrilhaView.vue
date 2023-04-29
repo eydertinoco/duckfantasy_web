@@ -4,8 +4,9 @@
 
 
     <form class="card">
-
-      <button type="submit">Nova Trilha</button>
+      <router-link to="/novatrilha">
+        <button type="submit">Nova Trilha</button>
+      </router-link>
 
       <table>
         <tr>
@@ -17,7 +18,9 @@
           <td>Alfreds Futterkiste</td>
           <td>Maria Anders</td>
           <td>
-            <button type="submit">Visualizar Trilha</button>
+            <router-link to="/trilha">
+              <button type="submit">Visualizar Trilha</button>
+            </router-link>
           </td>
         </tr>
       </table>
@@ -28,7 +31,7 @@
 
 <script>
 export default {
-  name: "CriarTurmaView",
+  name: "MinhaTrilhaView",
   data() {
     return {
       nomeTurma: '',

@@ -2,15 +2,14 @@
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/login">Login</router-link> |
-    <router-link to="/user">Minha Página</router-link> |
-    <router-link to="/novaturma">Nova Turma</router-link> |
-    <router-link to="/novatrilha">Nova Trilha</router-link> |
-    <router-link to="/novoconteudo">Novo Capítulo</router-link> |
+    <router-link to="/user">Minha Página</router-link>
   </nav>
   <router-view/>
 </template>
 
 <style lang="scss">
+@import 'assets/scss/app';
+
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -52,9 +51,18 @@ nav {
       font-weight: 600;
     }
     & input {
-      width: calc(100% - 25px);
-      padding: 2px 10px;
+      border: 1px solid $neutrals600;
+      border-radius: 5px;
+      padding: 2px;
       margin: 6px 0;
+      width: 100%;
+    }
+    & textarea {
+      border: 1px solid $neutrals600;
+      border-radius: 5px;
+      margin: 6px 0;
+      min-height: 60px;
+      width: 100%;
     }
   }
 }

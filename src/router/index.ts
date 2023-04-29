@@ -33,6 +33,22 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
+    path: '/minhaturma',
+    name: 'minhaturma',
+    component: () => import(/* webpackChunkName: "user" */ '../views/MinhaTurmaView.vue'),
+    meta: {
+      auth: true,
+    }
+  },
+  {
+    path: '/turma',
+    name: 'turma',
+    component: () => import(/* webpackChunkName: "user" */ '../views/TurmaView.vue'),
+    meta: {
+      auth: true,
+    }
+  },
+  {
     path: '/minhatrilha',
     name: 'minhatrilha',
     component: () => import(/* webpackChunkName: "user" */ '../views/MinhaTrilhaView.vue'),
@@ -49,9 +65,25 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
+    path: '/trilha',
+    name: 'trilha',
+    component: () => import(/* webpackChunkName: "user" */ '../views/TrilhaView.vue'),
+    meta: {
+      auth: true,
+    }
+  },
+  {
     path: '/novoconteudo',
     name: 'novoconteudo',
     component: () => import(/* webpackChunkName: "user" */ '../views/CriarCapituloView.vue'),
+    meta: {
+      auth: true,
+    }
+  },
+  {
+    path: '/conteudo',
+    name: 'conteudo',
+    component: () => import(/* webpackChunkName: "user" */ '../views/CapituloView.vue'),
     meta: {
       auth: true,
     }
