@@ -10,6 +10,10 @@ export const useAuthStore = defineStore('auth/login', () => {
         token.value = tokenValue;
     }
 
+    function getToken() {
+        return token.value;
+    }
+
     async function checkToken() {
         try {
             const tokenAuth = 'Bearer ' + token.value;

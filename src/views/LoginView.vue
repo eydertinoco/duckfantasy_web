@@ -32,8 +32,8 @@ export default {
   name: "LoginView",
   data() {
     return {
-      email: 'eydertinoco@outlook.com',
-      password: '123'
+      email: '',
+      password: ''
     }
   },
   methods: {
