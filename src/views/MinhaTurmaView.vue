@@ -2,59 +2,24 @@
   <div>
     <h2>Minhas Turmas</h2>
 
-
     <form class="card">
       <router-link to="/novaturma">
         <button type="submit">Nova Turma</button>
       </router-link>
 
-      <h3>Turma Ativa</h3>
-      <table>
-        <tr>
-          <th>Nome</th>
-          <th>Data Inicio</th>
-          <th>Data Encerramento</th>
-          <th style="width: 75px;">Visualizar</th>
-        </tr>
-        <tr>
-          <td>IFAL GESI 2023.1</td>
-          <td>01/02/2023</td>
-          <td>13/06/2023</td>
-          <td>
-            <router-link to="/turma">
-              <button type="submit">Visualizar</button>
-            </router-link>
-          </td>
-        </tr>
-      </table>
-
-      <h3>Turma Desativada</h3>
-      <table>
-        <tr>
-          <th>Nome</th>
-          <th>Data Inicio</th>
-          <th>Data Encerramento</th>
-          <th style="width: 75px;">Visualizar</th>
-        </tr>
-        <tr>
-          <td>IFAL GESI 2022.2</td>
-          <td>19/06/2022</td>
-          <td>29/12/2022</td>
-          <td>
-            <router-link to="/turma">
-              <button type="submit">Visualizar</button>
-            </router-link>
-          </td>
-        </tr>
-      </table>
+      <h3>Minhas Turmas</h3>
+      <ListaTurmas/>
 
     </form>
   </div>
 </template>
 
 <script>
+import ListaTurmas from "@/components/ListaTurmas.vue";
+
 export default {
   name: "MinhaTurmaView",
+  components: {ListaTurmas},
   data() {
     return {
       nomeTurma: '',

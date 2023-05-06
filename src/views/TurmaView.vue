@@ -1,12 +1,8 @@
 <template>
   <div>
-    <h2>Nome da Turma</h2>
+    <h2>{{ className }}</h2>
 
     <form class="card">
-<!--      <router-link to="">-->
-        <button type="submit">Criar Convite</button>
-<!--      </router-link>-->
-
       <h3>Alunos Vinculados</h3>
       <table>
         <tr>
@@ -53,16 +49,38 @@
 <script>
 import PieChart from "@/components/PieChart.vue";
 import UserInfo from "@/components/UserInfo.vue";
+import server from "@/services/config";
+import {useAuthStore} from "@/store/auth";
 
 export default {
   name: "TrilhaView",
   components: {PieChart},
   data() {
     return {
-      nomeTurma: '',
-      dataFim: ''
+      className: '',
+      createdDate: '',
+      completionDate: ''
     }
   },
+  props: {
+
+  },
+  methods: {
+    async getTurma() {
+      const auth = useAuthStore();
+      const data = await server.get(
+          '/turma/6455a2046915406c4bec464a',
+          { headers: {'Authorization': `Bearer ${auth.token}`}}
+      );
+      this.turma = data.data;
+      this.className = this.turma.className;
+      this.createdDate = this.turma.createdDate
+      this.completionDate = this.turma.completionDate
+    },
+  },
+  mounted () {
+    this.getTurma();
+  }
 }
 </script>
 

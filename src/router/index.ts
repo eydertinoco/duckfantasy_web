@@ -41,8 +41,9 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
-    path: '/turma',
+    path: '/turma/:id',
     name: 'turma',
+    props: true,
     component: () => import(/* webpackChunkName: "user" */ '../views/TurmaView.vue'),
     meta: {
       auth: true,
