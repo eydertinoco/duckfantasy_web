@@ -25,9 +25,13 @@
         </tr>
       </table>
 
-      <div style="display: flex; width: 100%;">
+      <div style="display: flex; width: 100%; flex-direction: column;">
         <div style="width: 100%;">
           <h3>Turmas Vinculadas</h3>
+
+          <router-link :to="getURI(this.$route.params.id)">
+            <button type="submit">Vincular trilha com nova Turma</button>
+          </router-link>
 
           <table>
             <tr>
@@ -77,6 +81,9 @@ export default {
     }
   },
   methods: {
+    getURI(id) {
+      return `/trilha/${id}/vincularturma`;
+    },
     async getTrilha() {
       const auth = useAuthStore();
       const data = await server.get(

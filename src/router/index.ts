@@ -74,6 +74,14 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
+    path: '/trilha/:id/vincularturma',
+    name: 'vinculartrilha',
+    component: () => import(/* webpackChunkName: "user" */ '../views/VincularTurma.vue'),
+    meta: {
+      auth: true,
+    }
+  },
+  {
     path: '/novoconteudo',
     name: 'novoconteudo',
     component: () => import(/* webpackChunkName: "user" */ '../views/CriarCapituloView.vue'),
