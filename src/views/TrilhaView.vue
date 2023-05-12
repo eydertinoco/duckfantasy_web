@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h2>Nome da Trilha</h2>
+    <h2>{{trailName}}</h2>
+
+    <p>{{trailDescription}}</p>
 
     <form class="card">
       <router-link to="/novoconteudo">
@@ -62,16 +64,33 @@
 <script>
 import PieChart from "@/components/PieChart.vue";
 import UserInfo from "@/components/UserInfo.vue";
+import {useAuthStore} from "@/store/auth";
+import server from "@/services/config";
 
 export default {
   name: "TrilhaView",
   components: {PieChart},
   data() {
     return {
-      nomeTurma: '',
-      dataFim: ''
+      trailName: '',
+      trailDescription: ''
     }
   },
+  methods: {
+    async getTrilha() {
+      const auth = useAuthStore();
+      const data = await server.get(
+          '/trial/' + this.$route.params.id,
+          { headers: {'Authorization': `Bearer ${auth.token}`}}
+      );
+      this.trial = data.data;
+      this.trailName = this.trial.trailName;
+      this.trailDescription = this.trial.trailDescription;
+    },
+  },
+  mounted () {
+    this.getTrilha();
+  }
 }
 </script>
 

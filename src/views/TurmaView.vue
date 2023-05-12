@@ -13,8 +13,8 @@
         </tr>
       </table>
 
-      <div style="display: flex; width: 100%;">
-        <div style="width: 100%;">
+      <div style="display: flex; width: 100%; align-items: flex-start; justify-content: space-between;">
+        <div style="width: 49%;">
           <h3>Trilhas Vinculadas</h3>
 
           <table>
@@ -32,7 +32,7 @@
             </tr>
           </table>
         </div>
-        <div style="width: 100%;">
+        <div style="width: 49%;">
           <h3>Analíse da Turma</h3>
           <div style="border: 1px solid black; display: flex; flex-direction: column;">
 
@@ -62,20 +62,17 @@ export default {
       completionDate: ''
     }
   },
-  props: {
-
-  },
   methods: {
     async getTurma() {
       const auth = useAuthStore();
       const data = await server.get(
-          '/turma/6455a2046915406c4bec464a',
+          '/turma/' + this.$route.params.id,
           { headers: {'Authorization': `Bearer ${auth.token}`}}
       );
       this.turma = data.data;
       this.className = this.turma.className;
-      this.createdDate = this.turma.createdDate
-      this.completionDate = this.turma.completionDate
+      this.createdDate = this.turma.createdDate;
+      this.completionDate = this.turma.completionDate;
     },
   },
   mounted () {

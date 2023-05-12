@@ -2,36 +2,24 @@
   <div>
     <h2>Minhas Trilhas</h2>
 
-
     <form class="card">
       <router-link to="/novatrilha">
         <button type="submit">Nova Trilha</button>
       </router-link>
 
-      <table>
-        <tr>
-          <th>Company</th>
-          <th>Contact</th>
-          <th style="width: 75px;">Visualizar</th>
-        </tr>
-        <tr>
-          <td>Alfreds Futterkiste</td>
-          <td>Maria Anders</td>
-          <td>
-            <router-link to="/trilha">
-              <button type="submit">Visualizar Trilha</button>
-            </router-link>
-          </td>
-        </tr>
-      </table>
+      <h3>Minhas Trilhas</h3>
+      <ListaTrilha/>
 
     </form>
   </div>
 </template>
 
 <script>
+import ListaTrilha from "@/components/ListaTrilha.vue";
+
 export default {
   name: "MinhaTrilhaView",
+  components: {ListaTrilha},
   data() {
     return {
       nomeTurma: '',

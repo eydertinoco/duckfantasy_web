@@ -66,7 +66,7 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
-    path: '/trilha',
+    path: '/trilha/:id',
     name: 'trilha',
     component: () => import(/* webpackChunkName: "user" */ '../views/TrilhaView.vue'),
     meta: {

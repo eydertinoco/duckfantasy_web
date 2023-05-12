@@ -32,6 +32,7 @@
 import {useAuthStore} from "@/store/auth";
 import server from "@/services/config";
 import {isJWT} from "class-validator";
+import router from "@/router";
 
 export default {
   name: "CriarTurmaView",
@@ -61,6 +62,7 @@ export default {
             { headers: {'Authorization': `Bearer ${auth.token}`}}
         );
         console.log(data);
+        router.push({ path: '/minhaturma'});
       } catch (error) {
         console.log(error?.response?.data);
       }
