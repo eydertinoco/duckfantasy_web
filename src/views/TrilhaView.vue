@@ -29,10 +29,6 @@
         <div style="width: 100%;">
           <h3>Turmas Vinculadas</h3>
 
-          <router-link :to="getURI(this.$route.params.id)">
-            <button type="submit">Vincular trilha com nova Turma</button>
-          </router-link>
-
           <table>
             <tr>
               <th>Nome</th>
@@ -81,9 +77,6 @@ export default {
     }
   },
   methods: {
-    getURI(id) {
-      return `/trilha/${id}/vincularturma`;
-    },
     async getTrilha() {
       const auth = useAuthStore();
       const data = await server.get(

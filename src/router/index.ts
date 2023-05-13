@@ -50,6 +50,14 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
+    path: '/turma/:id/vincularturma',
+    name: 'vincularturma',
+    component: () => import(/* webpackChunkName: "user" */ '../views/VincularTurma.vue'),
+    meta: {
+      auth: true,
+    }
+  },
+  {
     path: '/minhatrilha',
     name: 'minhatrilha',
     component: () => import(/* webpackChunkName: "user" */ '../views/MinhaTrilhaView.vue'),
@@ -69,14 +77,6 @@ const routes: Array<RouteRecordRaw> = [
     path: '/trilha/:id',
     name: 'trilha',
     component: () => import(/* webpackChunkName: "user" */ '../views/TrilhaView.vue'),
-    meta: {
-      auth: true,
-    }
-  },
-  {
-    path: '/trilha/:id/vincularturma',
-    name: 'vinculartrilha',
-    component: () => import(/* webpackChunkName: "user" */ '../views/VincularTurma.vue'),
     meta: {
       auth: true,
     }
