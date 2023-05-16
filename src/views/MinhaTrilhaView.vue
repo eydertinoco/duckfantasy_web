@@ -2,6 +2,10 @@
   <div>
     <h2>Minhas Trilhas</h2>
 
+    <router-link :to="{ name: 'user' }">
+      <button type="submit">Voltar</button>
+    </router-link>
+
     <form class="card">
       <router-link to="/novatrilha">
         <button type="submit">Nova Trilha</button>

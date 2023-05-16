@@ -4,26 +4,18 @@
 
     <p>{{trailDescription}}</p>
 
+    <router-link :to="{ name: 'minhatrilha' }">
+      <button type="submit">Voltar</button>
+    </router-link>
+
     <form class="card">
-      <router-link to="/novoconteudo">
+
+      <router-link :to="{ name: 'novoconteudo' }">
         <button type="submit">Criar Capítulo</button>
       </router-link>
 
       <h3>Lista de Capítulos</h3>
-      <table>
-        <tr>
-          <th>Nome</th>
-          <th style="width: 75px;">Visualizar</th>
-        </tr>
-        <tr>
-          <td>Alfreds Futterkiste</td>
-          <td>
-            <router-link to="/conteudo">
-              <button type="submit">Visualizar</button>
-            </router-link>
-          </td>
-        </tr>
-      </table>
+      <ListaCapitulos/>
 
       <div style="display: flex; width: 100%; flex-direction: column;">
         <div style="width: 100%;">
@@ -43,19 +35,25 @@
 <script>
 import PieChart from "@/components/PieChart.vue";
 import UserInfo from "@/components/UserInfo.vue";
+import ListaCapitulos from "@/components/ListaCapitulos.vue";
 import {useAuthStore} from "@/store/auth";
 import server from "@/services/config";
+import minhaTrilhaView from "@/views/MinhaTrilhaView.vue";
 
 export default {
   name: "TrilhaView",
-  components: {PieChart},
+  components: {PieChart, ListaCapitulos},
   data() {
     return {
       trailName: '',
-      trailDescription: ''
+      trailDescription: '',
+      trialPage: this.$route.params.id
     }
   },
   methods: {
+    minhaTrilhaView() {
+      return minhaTrilhaView
+    },
     async getTrilha() {
       const auth = useAuthStore();
       const data = await server.get(

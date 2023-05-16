@@ -1,18 +1,12 @@
 <template>
   <div>
     <form class="card">
-      <div style="background-color: gray; width: 100%;">
-        <h4>Area do Professor</h4>
 
-        <p>Adicionar Atividade</p>
 
-        <p>Graficos de Analise do Capítulo</p>
-      </div>
-
-      <h2>nomeCapitulo</h2>
+      <h2>{{ chapterTitle }}</h2>
 
       <div class="card__field">
-        <p>conteudoCapitulo</p>
+        <p>{{ chapterText }}</p>
       </div>
 
     </form>
@@ -20,14 +14,33 @@
 </template>
 
 <script>
+import {useAuthStore} from "@/store/auth";
+import server from "@/services/config";
+
 export default {
   name: "CapituloView",
   data() {
     return {
-      nomeCapitulo: '',
-      conteudoCapitulo: ''
+      trilhaId: '645e2f3b9188788071e320f9',
+      chapterTitle: '',
+      chapterText: ''
     }
   },
+  methods: {
+    async getCapitulo() {
+      console.log(this.$route.params.id);
+      const auth = useAuthStore();
+      const dataCapitulo = await server.get(
+          '/trial/' + this.trilhaId +  '/chapter/' + this.$route.params.id,
+          { headers: {'Authorization': `Bearer ${auth.token}`}}
+      );
+      this.chapterTitle = dataCapitulo.data.chapterTitle;
+      this.chapterText = dataCapitulo.data.chapterText;
+    },
+  },
+  mounted () {
+    this.getCapitulo();
+  }
 }
 </script>
 

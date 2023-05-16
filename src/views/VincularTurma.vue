@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link to="/trilha/645e283d9188788071e320f1">
+    <router-link :to="getURI(this.turmaId)">
       <button type="submit">Voltar</button>
     </router-link>
     <h2>Vincular Turma</h2>
@@ -39,6 +39,9 @@ export default {
     }
   },
   methods: {
+    getURI(id) {
+      return `/turma/${id}`;
+    },
     async getTurma() {
       const auth = useAuthStore();
       const dataTurma = await server.get(

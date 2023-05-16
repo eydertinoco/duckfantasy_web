@@ -82,17 +82,19 @@ const routes: Array<RouteRecordRaw> = [
     }
   },
   {
-    path: '/novoconteudo',
+    path: '/trilha/:id/novoconteudo',
     name: 'novoconteudo',
     component: () => import(/* webpackChunkName: "user" */ '../views/CriarCapituloView.vue'),
+    props: true,
     meta: {
       auth: true,
     }
   },
   {
-    path: '/conteudo',
+    path: '/conteudo/:id',
     name: 'conteudo',
     component: () => import(/* webpackChunkName: "user" */ '../views/CapituloView.vue'),
+    props: true,
     meta: {
       auth: true,
     }

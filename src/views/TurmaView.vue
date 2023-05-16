@@ -2,6 +2,10 @@
   <div>
     <h2>{{ className }}</h2>
 
+    <router-link :to="{ name: 'minhaturma' }">
+      <button type="submit">Voltar</button>
+    </router-link>
+
     <form class="card">
       <h3>Alunos Vinculados</h3>
       <table>
