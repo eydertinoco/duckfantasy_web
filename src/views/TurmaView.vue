@@ -21,20 +21,7 @@
             <button type="submit">Vincular turma com nova trilha</button>
           </router-link>
 
-          <table>
-            <tr>
-              <th>Nome</th>
-              <th style="width: 75px;">Visualizar</th>
-            </tr>
-            <tr>
-              <td>Segunda Guerra Mundial</td>
-              <td>
-                <router-link to="/trilha">
-                  <button type="submit">Visualizar</button>
-                </router-link>
-              </td>
-            </tr>
-          </table>
+          <ListaTrilhaVinculadas/>
         </div>
         <div style="width: 100%;">
           <h3>Analíse da Turma</h3>
@@ -52,13 +39,14 @@
 
 <script>
 import PieChart from "@/components/PieChart.vue";
+import ListaTrilhaVinculadas from "@/components/ListaTrilhaVinculadas.vue";
 import UserInfo from "@/components/UserInfo.vue";
 import server from "@/services/config";
 import {useAuthStore} from "@/store/auth";
 
 export default {
   name: "TrilhaView",
-  components: {PieChart},
+  components: {PieChart, ListaTrilhaVinculadas},
   data() {
     return {
       className: '',

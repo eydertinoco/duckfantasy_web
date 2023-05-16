@@ -35,7 +35,7 @@ export default {
       turmaId: '',
       className: '',
       trilhas: '',
-      listaTrilha: []
+      listTrail: []
     }
   },
   methods: {
@@ -46,8 +46,9 @@ export default {
           { headers: {'Authorization': `Bearer ${auth.token}`}}
       );
       this.turma = dataTurma.data;
+      console.log(this.turma);
       this.turmaId = this.turma.id;
-      this.listaTrilha = this.turma.listaTrilha;
+      this.listTrail = this.turma.listTrail;
       this.className = this.turma.className
       const dataTrilha = await server.get(
           '/trial',
@@ -60,15 +61,15 @@ export default {
       console.log(this.turmaId);
       console.log(this.trilha);
 
-      console.log(this.listaTrilha);
-      this.listaTrilha.push(this.trilha);
-      console.log(this.listaTrilha);
 
       try {
+        const addTrilha = {
+          trailId: this.trilha
+        }
         const auth = useAuthStore();
         const data = await server.patch(
             '/turma/' + this.turmaId,
-            listaTrilha,
+            addTrilha,
             { headers: {'Authorization': `Bearer ${auth.token}`}}
         );
         console.log(data);

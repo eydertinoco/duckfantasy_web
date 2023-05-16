@@ -27,27 +27,6 @@
 
       <div style="display: flex; width: 100%; flex-direction: column;">
         <div style="width: 100%;">
-          <h3>Turmas Vinculadas</h3>
-
-          <table>
-            <tr>
-              <th>Nome</th>
-              <th>Ano</th>
-              <th style="width: 75px;">Status</th>
-            </tr>
-            <tr>
-              <td>Colégio Romano - 2ºAno Médio - Geografia</td>
-              <td>2023</td>
-              <td>Ativo</td>
-            </tr>
-            <tr>
-              <td>Colégio Romano - 2ºAno Médio - Geografia</td>
-              <td>2022</td>
-              <td>Desativado</td>
-            </tr>
-          </table>
-        </div>
-        <div style="width: 100%;">
           <h3>Analíse da Trilha</h3>
           <div style="border: 1px solid black; display: flex; flex-direction: column;">
 
