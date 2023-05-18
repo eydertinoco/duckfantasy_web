@@ -32,24 +32,25 @@ export default {
   data() {
     return {
       turmas: null,
-      office: '',
     }
   },
   methods: {
     getURI(id) {
       return `/turma/${id}`;
     },
-    async getPedidos() {
+    async getTurmasVinculadas() {
       const auth = useAuthStore();
       const data = await server.get(
-          '/turma/professor',
+          '/turma/aluno',
           { headers: {'Authorization': `Bearer ${auth.token}`}}
       );
       this.turmas = data.data;
+      console.log('estou aqui')
+      console.log(this.turmas);
     },
   },
   mounted () {
-    this.getPedidos();
+    this.getTurmasVinculadas();
   }
 }
 </script>

@@ -11,9 +11,9 @@
           <div class="order-number">{{ turma.id }}</div>
           <div>{{ turma.className }}</div>
           <div>
-            <router-link :to="getURI(turma.id)">
-              <button class="delete-btn" type="submit">Visualizar</button>
-            </router-link>
+            <button @click="vincularAlunoTurma($event, turma.id)" class="delete-btn" type="submit">
+              Vincular
+            </button>
           </div>
         </div>
       </div>
@@ -32,24 +32,28 @@ export default {
   data() {
     return {
       turmas: null,
-      office: '',
     }
   },
   methods: {
     getURI(id) {
       return `/turma/${id}`;
     },
-    async getPedidos() {
+    async getTurmas() {
       const auth = useAuthStore();
       const data = await server.get(
-          '/turma/professor',
+          '/turma',
           { headers: {'Authorization': `Bearer ${auth.token}`}}
       );
       this.turmas = data.data;
     },
+    async vincularAlunoTurma(e, turmaId) {
+      e.preventDefault();
+      console.log(turmaId);
+
+    }
   },
   mounted () {
-    this.getPedidos();
+    this.getTurmas();
   }
 }
 </script>

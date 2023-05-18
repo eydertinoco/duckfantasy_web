@@ -36,7 +36,21 @@
     </div>
 
     <div v-else>
-      <p>Sou um Aluno</p>
+
+      <div style="display: flex;">
+        <div style="display: flex; flex-direction: column; width: 50%;">
+          <h1>Minhas Turmas</h1>
+
+          <ListaTurmasVinculadas/>
+        </div>
+
+        <div style="display: flex; flex-direction: column; width: 50%;">
+          <h1>Vincular Turma</h1>
+
+          <ListaTodasTurmas/>
+        </div>
+      </div>
+
     </div>
 
   </div>
@@ -47,10 +61,14 @@ import server from "@/services/config";
 import PieChart from "@/components/PieChart.vue";
 import UserInfo from "@/components/UserInfo.vue";
 import {useCookies} from "vue3-cookies";
+import minhaTrilhaView from "@/views/MinhaTrilhaView.vue";
+import {useAuthStore} from "@/store/auth";
+import ListaTurmasVinculadas from "@/components/ListaTurmasVinculadas.vue";
+import ListaTodasTurmas from "@/components/ListaTodasTurmas.vue";
 
 export default {
   name: "UserView",
-  components: {PieChart, UserInfo},
+  components: {ListaTurmasVinculadas, ListaTodasTurmas, PieChart, UserInfo},
   data() {
     return {
       nome: 'Nome do Usuário',
@@ -58,6 +76,21 @@ export default {
       office: 'Professor',
     }
   },
+  methods: {
+    async getUser() {
+      const auth = useAuthStore();
+      const data = await server.get(
+          '/user/' + this.$route.params.id,
+          { headers: {'Authorization': `Bearer ${auth.token}`}}
+      );
+      this.nome = data.data.name;
+      this.email = data.data.email;
+      this.office = data.data.office;
+    },
+  },
+  mounted () {
+    this.getUser();
+  }
 }
 </script>
 
