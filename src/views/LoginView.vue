@@ -32,6 +32,7 @@ export default {
   name: "LoginView",
   data() {
     return {
+      userId: '',
       email: '',
       password: ''
     }
@@ -47,10 +48,21 @@ export default {
       try {
         const data = await server.post('/auth/login', user);
         console.log(data)
-
         auth.setToken(data.data.access_token);
 
-        window.location = "/user"
+        const getUserInfo = await server.get(
+            '/user',
+            { headers: {'Authorization': `Bearer ${auth.token}`}}
+        );
+        const allUser = getUserInfo.data;
+        const quntUser = allUser.length;
+        for (let i=0; i < quntUser; i++) {
+          if (user.email === allUser[i].email) {
+            this.userId = allUser[i].id;
+          }
+        }
+
+        window.location = `/user/${this.userId}`
       } catch (error) {
         console.log(error?.response?.data);
       }

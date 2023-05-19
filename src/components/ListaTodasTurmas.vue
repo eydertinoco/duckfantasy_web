@@ -3,17 +3,17 @@
     <div>
       <div id="burger-table-heading">
         <div class="order-id">#</div>
-        <div style="width: 60%;">Nome da Turma</div>
+        <div>Nome da Turma</div>
         <div>Ações</div>
       </div>
       <div id="burger-table-rows">
         <div class="burger-table-row" v-for="turma in turmas" :key="turma.id">
           <div class="order-number">{{ turma.id }}</div>
-          <div style="width: 60%;">{{ turma.className }}</div>
+          <div>{{ turma.className }}</div>
           <div>
-            <router-link :to="getURI(turma.id)">
-              <button class="delete-btn" type="submit">Visualizar</button>
-            </router-link>
+            <button @click="vincularAlunoTurma($event, turma.id)" class="delete-btn" type="submit">
+              Vincular
+            </button>
           </div>
         </div>
       </div>
@@ -32,24 +32,28 @@ export default {
   data() {
     return {
       turmas: null,
-      office: '',
     }
   },
   methods: {
     getURI(id) {
       return `/turma/${id}`;
     },
-    async getPedidos() {
+    async getTurmas() {
       const auth = useAuthStore();
       const data = await server.get(
-          '/turma/professor',
+          '/turma',
           { headers: {'Authorization': `Bearer ${auth.token}`}}
       );
       this.turmas = data.data;
     },
+    async vincularAlunoTurma(e, turmaId) {
+      e.preventDefault();
+      console.log(turmaId);
+
+    }
   },
   mounted () {
-    this.getPedidos();
+    this.getTurmas();
   }
 }
 </script>
