@@ -28,7 +28,7 @@ import {useAuthStore} from "@/store/auth";
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: "ListaTurmas",
+  name: "ListaTurmasVinculadas",
   data() {
     return {
       turmas: null,
@@ -38,17 +38,17 @@ export default {
     getURI(id) {
       return `/turma/${id}`;
     },
-    async getPedidos() {
+    async getTurmasVinculadas() {
       const auth = useAuthStore();
       const data = await server.get(
-          '/turma',
+          '/turma/aluno',
           { headers: {'Authorization': `Bearer ${auth.token}`}}
       );
       this.turmas = data.data;
     },
   },
   mounted () {
-    this.getPedidos();
+    this.getTurmasVinculadas();
   }
 }
 </script>

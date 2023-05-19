@@ -2,7 +2,7 @@
   <div>
     <h2>Página do Usuário</h2>
 
-    <UserInfo :nome="nome" :email="email" :office="office"/>
+    <UserInfo :nome="name" :email="email" :office="office"/>
 
     <div v-if="office === 'Professor'">
       <p>Sou um Professor</p>
@@ -37,6 +37,21 @@
 
     <div v-else>
       <p>Sou um Aluno</p>
+
+      <div>
+        <div>
+          <h2>Turmas Vinculadas</h2>
+
+          <ListaTurmasVinculadas/>
+        </div>
+
+        <div>
+          <h2>Turmas Dispóniveis</h2>
+          <ListaTurmasTotais/>
+        </div>
+      </div>
+
+
     </div>
 
   </div>
@@ -47,17 +62,38 @@ import server from "@/services/config";
 import PieChart from "@/components/PieChart.vue";
 import UserInfo from "@/components/UserInfo.vue";
 import {useCookies} from "vue3-cookies";
+import {useAuthStore} from "@/store/auth";
+import ListaTurmasVinculadas from "@/components/ListaTurmasVinculadas.vue";
+import ListaTurmasTotais from "@/components/ListaTurmasTotais.vue";
 
 export default {
   name: "UserView",
-  components: {PieChart, UserInfo},
+  components: {PieChart, UserInfo, ListaTurmasVinculadas, ListaTurmasTotais},
   data() {
     return {
-      nome: 'Nome do Usuário',
+      name: 'Nome do Usuário',
       email: 'Email do Usuário',
       office: 'Professor',
     }
   },
+  methods: {
+    getURI(id) {
+      return `/turma/${id}/vincularturma`;
+    },
+    async getUser() {
+      const auth = useAuthStore();
+      const dataUser = await server.get(
+          '/auth/me',
+          { headers: {'Authorization': `Bearer ${auth.token}`}}
+      );
+      this.name = dataUser.data.name;
+      this.email = dataUser.data.email;
+      this.office = dataUser.data.office;
+    },
+  },
+  mounted () {
+    this.getUser();
+  }
 }
 </script>
 

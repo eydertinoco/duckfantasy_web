@@ -7,33 +7,39 @@
     </router-link>
 
     <form class="card">
-      <h3>Alunos Vinculados</h3>
-      <table>
-        <tr>
-          <th>Nome</th>
-        </tr>
-        <tr>
-          <td>Alfreds Futterkiste</td>
-        </tr>
-      </table>
 
-      <div style="display: flex; width: 100%; flex-direction: column;">
-        <div style="width: 100%;">
-          <h3>Trilhas Vinculadas</h3>
+      <div>
+        <h3>Professor: {{ teacherName }}</h3>
+      </div>
 
-          <router-link :to="getURI(this.$route.params.id)">
-            <button type="submit">Vincular turma com nova trilha</button>
-          </router-link>
+      <div>
+        <h3>Alunos Vinculados</h3>
+        <table>
+          <tr>
+            <th>Nome</th>
+          </tr>
+          <tr>
+            <td>Alfreds Futterkiste</td>
+          </tr>
+        </table>
+      </div>
 
-          <ListaTrilhaVinculadas/>
-        </div>
-        <div style="width: 100%;">
-          <h3>Analíse da Turma</h3>
-          <div style="border: 1px solid black; display: flex; flex-direction: column;">
+      <div style="width: 100%;">
+        <h3>Trilhas Vinculadas</h3>
 
-            <PieChart/>
+        <router-link :to="getURI(this.$route.params.id)" v-if="office === 'Professor'">
+          <button type="submit">Vincular turma com nova trilha</button>
+        </router-link>
 
-          </div>
+        <ListaTrilhaVinculadas/>
+      </div>
+
+      <div style="width: 100%;">
+        <h3>Analíse da Turma</h3>
+        <div style="border: 1px solid black; display: flex; flex-direction: column;">
+
+          <PieChart/>
+
         </div>
       </div>
 
@@ -55,7 +61,10 @@ export default {
     return {
       className: '',
       createdDate: '',
-      completionDate: ''
+      completionDate: '',
+      teacherId: '',
+      teacherName: '',
+      office: '',
     }
   },
   methods: {
@@ -64,14 +73,26 @@ export default {
     },
     async getTurma() {
       const auth = useAuthStore();
-      const data = await server.get(
+      const dataUser = await server.get(
+          '/auth/me',
+          { headers: {'Authorization': `Bearer ${auth.token}`}}
+      );
+      this.office = dataUser.data.office;
+      const dataTurma = await server.get(
           '/turma/' + this.$route.params.id,
           { headers: {'Authorization': `Bearer ${auth.token}`}}
       );
-      this.turma = data.data;
+      this.turma = dataTurma.data;
       this.className = this.turma.className;
       this.createdDate = this.turma.createdDate;
       this.completionDate = this.turma.completionDate;
+      this.teacherId = this.turma.teacherId;
+      const dataTeacher = await server.get(
+          '/user/' + this.teacherId,
+          { headers: {'Authorization': `Bearer ${auth.token}`}}
+      );
+      const teacher = dataTeacher.data;
+      this.teacherName = teacher.name;
     },
   },
   mounted () {

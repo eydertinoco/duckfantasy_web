@@ -11,9 +11,9 @@
           <div class="order-number">{{ turma.id }}</div>
           <div style="width: 60%;">{{ turma.className }}</div>
           <div>
-            <router-link :to="getURI(turma.id)">
-              <button class="delete-btn" type="submit">Visualizar</button>
-            </router-link>
+            <button class="delete-btn" type="submit" @click="vincularTurma($event, turma.id)">
+              Vincular
+            </button>
           </div>
         </div>
       </div>
@@ -28,17 +28,14 @@ import {useAuthStore} from "@/store/auth";
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: "ListaTurmas",
+  name: "ListaTurmasTotais",
   data() {
     return {
       turmas: null,
     }
   },
   methods: {
-    getURI(id) {
-      return `/turma/${id}`;
-    },
-    async getPedidos() {
+    async getTurmasVinculadas() {
       const auth = useAuthStore();
       const data = await server.get(
           '/turma',
@@ -46,9 +43,31 @@ export default {
       );
       this.turmas = data.data;
     },
+    async vincularTurma(e, turmaId) {
+      e.preventDefault();
+      const auth = useAuthStore();
+      const dataUser = await server.get(
+          '/auth/me',
+          { headers: {'Authorization': `Bearer ${auth.token}`}}
+      );
+      const novoAluno = {
+        studentId: dataUser.data.id,
+      }
+
+      try {
+        const addAlunoTurma = await server.patch(
+            '/turma/' + turmaId + '/aluno/vincular',
+            novoAluno,
+            { headers: {'Authorization': `Bearer ${auth.token}`}}
+        );
+        this.$forceUpdate();
+      } catch (error) {
+        console.log(error?.response?.data);
+      }
+    }
   },
   mounted () {
-    this.getPedidos();
+    this.getTurmasVinculadas();
   }
 }
 </script>
