@@ -2,11 +2,12 @@
   <div>
     <h2>Minhas Trilhas</h2>
 
-    <router-link :to="{ name: 'user' }">
-      <button type="submit">Voltar</button>
-    </router-link>
-
     <form class="card">
+
+      <router-link :to="getURI()">
+        <button type="submit">Voltar</button>
+      </router-link>
+
       <router-link to="/novatrilha">
         <button type="submit">Nova Trilha</button>
       </router-link>
@@ -20,6 +21,8 @@
 
 <script>
 import ListaTrilha from "@/components/ListaTrilha.vue";
+import {useAuthStore} from "@/store/auth";
+import server from "@/services/config";
 
 export default {
   name: "MinhaTrilhaView",
@@ -27,9 +30,15 @@ export default {
   data() {
     return {
       nomeTurma: '',
-      dataFim: ''
+      dataFim: '',
+      user: '123',
     }
   },
+  methods: {
+    getURI() {
+      return `/user`;
+    },
+  }
 }
 </script>
 

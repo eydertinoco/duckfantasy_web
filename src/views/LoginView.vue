@@ -62,7 +62,7 @@ export default {
           }
         }
 
-        window.location = `/user/${this.userId}`
+        window.location = `/user`
       } catch (error) {
         console.log(error?.response?.data);
       }

@@ -2,7 +2,7 @@
   <div>
     <h2>Minhas Turmas</h2>
 
-    <router-link :to="{ name: 'user' }">
+    <router-link :to="getURI()">
       <button type="submit">Voltar</button>
     </router-link>
 
@@ -20,6 +20,8 @@
 
 <script>
 import ListaTurmas from "@/components/ListaTurmas.vue";
+import server from "@/services/config";
+import {useAuthStore} from "@/store/auth";
 
 export default {
   name: "MinhaTurmaView",
@@ -30,6 +32,11 @@ export default {
       dataFim: ''
     }
   },
+  methods: {
+    getURI() {
+      return `/user`;
+    },
+  }
 }
 </script>
 
