@@ -12,16 +12,9 @@
         <h3>Professor: {{ teacherName }}</h3>
       </div>
 
-      <div>
+      <div style="width: 100%;">
         <h3>Alunos Vinculados</h3>
-        <table>
-          <tr>
-            <th>Nome</th>
-          </tr>
-          <tr>
-            <td>Alfreds Futterkiste</td>
-          </tr>
-        </table>
+        <ListaAlunosVinculados/>
       </div>
 
       <div style="width: 100%;">
@@ -50,13 +43,14 @@
 <script>
 import PieChart from "@/components/PieChart.vue";
 import ListaTrilhaVinculadas from "@/components/ListaTrilhaVinculadas.vue";
+import ListaAlunosVinculados from "@/components/ListaAlunosVinculados.vue";
 import UserInfo from "@/components/UserInfo.vue";
 import server from "@/services/config";
 import {useAuthStore} from "@/store/auth";
 
 export default {
   name: "TrilhaView",
-  components: {PieChart, ListaTrilhaVinculadas},
+  components: {PieChart, ListaTrilhaVinculadas, ListaAlunosVinculados},
   data() {
     return {
       className: '',
