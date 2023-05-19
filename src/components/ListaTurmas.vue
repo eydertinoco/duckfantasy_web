@@ -41,7 +41,6 @@ export default {
     },
     async getPedidos() {
       const auth = useAuthStore();
-      console.log('Listar Turmas do Professor');
       const data = await server.get(
           '/turma/professor',
           { headers: {'Authorization': `Bearer ${auth.token}`}}

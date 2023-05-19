@@ -61,7 +61,6 @@ export default {
             novaTurma,
             { headers: {'Authorization': `Bearer ${auth.token}`}}
         );
-        console.log(data);
         router.push({ path: '/minhaturma'});
       } catch (error) {
         console.log(error?.response?.data);
