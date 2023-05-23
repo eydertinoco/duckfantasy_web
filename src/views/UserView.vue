@@ -20,19 +20,6 @@
         </router-link>
       </div>
 
-      <div style="display: flex; flex-direction: column;">
-        <h2>Análise Geral</h2>
-        <div style="display: flex; width: 100%;">
-          <div style="border: 1px solid black; display: flex;">
-
-            <PieChart/>
-          </div>
-          <div style="border: 1px solid black; display: flex;">
-
-            <PieChart/>
-          </div>
-        </div>
-      </div>
     </div>
 
     <div v-else>
@@ -59,7 +46,6 @@
 
 <script>
 import server from "@/services/config";
-import PieChart from "@/components/PieChart.vue";
 import UserInfo from "@/components/UserInfo.vue";
 import {useCookies} from "vue3-cookies";
 import {useAuthStore} from "@/store/auth";
@@ -68,7 +54,7 @@ import ListaTurmasTotais from "@/components/ListaTurmasTotais.vue";
 
 export default {
   name: "UserView",
-  components: {PieChart, UserInfo, ListaTurmasVinculadas, ListaTurmasTotais},
+  components: {UserInfo, ListaTurmasVinculadas, ListaTurmasTotais},
   data() {
     return {
       name: 'Nome do Usuário',
