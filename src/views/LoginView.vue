@@ -47,7 +47,6 @@ export default {
       const auth = useAuthStore();
       try {
         const data = await server.post('/auth/login', user);
-        console.log(data)
         auth.setToken(data.data.access_token);
 
         const getUserInfo = await server.get(

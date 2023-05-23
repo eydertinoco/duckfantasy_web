@@ -10,4 +10,8 @@ import './assets/scss/app.scss';
 
 const pinia = createPinia();
 
-createApp(App).use(router).use(pinia).component('QuillEditor', QuillEditor).mount('#app');
+createApp(App)
+    .use(router)
+    .use(pinia)
+    .component('QuillEditor', QuillEditor)
+    .mount('#app');

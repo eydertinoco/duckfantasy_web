@@ -27,7 +27,7 @@
         <ListaTrilhaVinculadas/>
       </div>
 
-      <div style="width: 100%;">
+      <div v-if="office === 'Professor'" style="width: 100%;">
         <h3>Analíse da Turma</h3>
         <div style="border: 1px solid black; display: flex; flex-direction: column;">
 

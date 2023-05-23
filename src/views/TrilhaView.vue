@@ -10,7 +10,7 @@
 
     <form class="card">
 
-      <router-link :to="{ name: 'novoconteudo' }">
+      <router-link :to="{ name: 'novoconteudo' }" v-if="office === 'Professor'">
         <button type="submit">Criar Capítulo</button>
       </router-link>
 
@@ -18,11 +18,11 @@
       <ListaCapitulos/>
 
       <div style="display: flex; width: 100%; flex-direction: column;">
-        <div style="width: 100%;">
+        <div style="width: 100%; margin-bottom: 30px;">
           <h3>Analíse da Trilha</h3>
           <div style="border: 1px solid black; display: flex; flex-direction: column;">
 
-            <PieChart/>
+            <TrilhaBarChart/>
 
           </div>
         </div>
@@ -33,21 +33,22 @@
 </template>
 
 <script>
-import PieChart from "@/components/PieChart.vue";
 import UserInfo from "@/components/UserInfo.vue";
 import ListaCapitulos from "@/components/ListaCapitulos.vue";
 import {useAuthStore} from "@/store/auth";
 import server from "@/services/config";
 import minhaTrilhaView from "@/views/MinhaTrilhaView.vue";
+import TrilhaBarChart from "@/components/TrilhaBarChart.vue";
 
 export default {
   name: "TrilhaView",
-  components: {PieChart, ListaCapitulos},
+  components: {TrilhaBarChart, ListaCapitulos},
   data() {
     return {
       trailName: '',
       trailDescription: '',
-      trialPage: this.$route.params.id
+      trialPage: this.$route.params.id,
+      office: null,
     }
   },
   methods: {
@@ -56,6 +57,11 @@ export default {
     },
     async getTrilha() {
       const auth = useAuthStore();
+      const dataUser = await server.get(
+          '/auth/me',
+          { headers: {'Authorization': `Bearer ${auth.token}`}}
+      );
+      this.office = dataUser.data.office;
       const data = await server.get(
           '/trial/' + this.$route.params.id,
           { headers: {'Authorization': `Bearer ${auth.token}`}}
