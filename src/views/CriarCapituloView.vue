@@ -54,7 +54,7 @@ export default {
       try {
         const auth = useAuthStore();
         const data = await server.post(
-            '/trial/' + novoCapitulo.trialId + '/chapter',
+            '/chapter',
             novoCapitulo,
             { headers: {'Authorization': `Bearer ${auth.token}`}}
         );

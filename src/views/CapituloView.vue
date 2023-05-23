@@ -61,7 +61,7 @@ export default {
         console.log(addNota);
         const auth = useAuthStore();
         const dataNota = await server.patch(
-            '/trial/645e2f3b9188788071e320f9/chapter/' + this.$route.params.id +'/nota',
+            '/chapter/' + this.$route.params.id +'/nota',
             addNota,
             { headers: {'Authorization': `Bearer ${auth.token}`}}
         );
@@ -80,7 +80,7 @@ export default {
     },
     async getCapitulo(auth) {
       const dataCapitulo = await server.get(
-          '/trial/' + this.trilhaId +  '/chapter/' + this.$route.params.id,
+          '/chapter/' + this.$route.params.id,
           { headers: {'Authorization': `Bearer ${auth.token}`}}
       );
       this.chapterTitle = dataCapitulo.data.chapterTitle;

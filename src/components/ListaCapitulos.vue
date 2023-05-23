@@ -49,7 +49,7 @@ export default {
       for (let i = 0; i < quantCapitulos; i++) {
         let capituloId = meusCapitulos[i];
         const dataCapitulo = await server.get(
-            '/trial/' + this.$route.params.id + '/chapter/' + capituloId,
+            '/chapter/' + capituloId,
             { headers: {'Authorization': `Bearer ${auth.token}`}}
         );
         this.capitulos.push(dataCapitulo.data);
