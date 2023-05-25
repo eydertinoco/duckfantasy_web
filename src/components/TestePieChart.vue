@@ -13,8 +13,8 @@ import VChart, { THEME_KEY } from 'vue-echarts';
 import { ref, provide, defineProps, reactive } from 'vue';
 
 const props = defineProps({
-  positivo: Number,
-  negativo: Number
+  acertos: Number,
+  erros: Number
 });
 
 use([
@@ -29,7 +29,7 @@ provide(THEME_KEY, 'white');
 
 const option = ref({
   title: {
-    text: 'Entendimento do Contéudo',
+    text: `Desempenho Geral do Contéudo`,
     left: 'center',
   },
   tooltip: {
@@ -39,17 +39,17 @@ const option = ref({
   legend: {
     orient: 'vertical',
     left: 'left',
-    data: ['Positivo', 'Negativo'],
+    data: ['Acertos', 'Erros'],
   },
   series: [
     {
-      name: 'Entendimento do Contéudo',
+      name: 'Desempenho do Contéudo',
       type: 'pie',
       radius: '55%',
       center: ['50%', '60%'],
       data: [
-        { value: props.positivo, name: 'Positivo' },
-        { value: props.negativo, name: 'Negativo' },
+        { value: props.acertos, name: 'Acertos' },
+        { value: props.erros, name: 'Erros' },
       ],
       emphasis: {
         itemStyle: {

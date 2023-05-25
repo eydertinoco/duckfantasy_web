@@ -13,8 +13,10 @@ import VChart, { THEME_KEY } from 'vue-echarts';
 import { ref, provide, defineProps, reactive } from 'vue';
 
 const props = defineProps({
-  positivo: Number,
-  negativo: Number
+  capitulos: {
+    nCapitulo: Number,
+    quantAcesso: Number,
+  },
 });
 
 use([
@@ -34,7 +36,7 @@ const option = ref({
     left: 'center',
   },
   xAxis: {
-    data: ['Cap 1', 'Cap 2', 'Cap 3', 'Cap 4', 'Cap 5']
+    data: [`Cap 1`, 'Cap 2', 'Cap 3', 'Cap 4', 'Cap 5']
   },
   yAxis: {},
   series: [
