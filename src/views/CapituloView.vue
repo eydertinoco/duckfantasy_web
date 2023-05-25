@@ -150,7 +150,7 @@ export default {
 
     async getTeste(auth) {
       const dataTeste = await server.get(
-          '/teste',
+          '/teste/chapter/' + this.$route.params.id,
           { headers: {'Authorization': `Bearer ${auth.token}`}}
       );
       const quantQuest = dataTeste.data.length;

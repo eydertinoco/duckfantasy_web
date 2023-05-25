@@ -51,6 +51,6 @@ const option = ref({
 <style>
 .chart {
   height: 50vh;
-  width: 100vw;
+  width: 100%;
 }
 </style>

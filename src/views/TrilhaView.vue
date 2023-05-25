@@ -17,7 +17,7 @@
       <h3>Lista de Capítulos</h3>
       <ListaCapitulos/>
 
-      <div style="display: flex; width: 100%; flex-direction: column;">
+      <div style="display: flex; width: 100%; flex-direction: column;" v-if="office === 'Professor'">
         <div style="width: 100%; margin-bottom: 30px;">
           <h3>Analíse da Trilha</h3>
           <div style="border: 1px solid black; display: flex; flex-direction: column;">

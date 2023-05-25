@@ -27,21 +27,11 @@
         <ListaTrilhaVinculadas/>
       </div>
 
-      <div v-if="office === 'Professor'" style="width: 100%;">
-        <h3>Analíse da Turma</h3>
-        <div style="border: 1px solid black; display: flex; flex-direction: column;">
-
-          <PieChart/>
-
-        </div>
-      </div>
-
     </form>
   </div>
 </template>
 
 <script>
-import PieChart from "@/components/PieChart.vue";
 import ListaTrilhaVinculadas from "@/components/ListaTrilhaVinculadas.vue";
 import ListaAlunosVinculados from "@/components/ListaAlunosVinculados.vue";
 import UserInfo from "@/components/UserInfo.vue";
@@ -50,7 +40,7 @@ import {useAuthStore} from "@/store/auth";
 
 export default {
   name: "TrilhaView",
-  components: {PieChart, ListaTrilhaVinculadas, ListaAlunosVinculados},
+  components: {ListaTrilhaVinculadas, ListaAlunosVinculados},
   data() {
     return {
       className: '',
