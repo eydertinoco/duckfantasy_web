@@ -22,7 +22,8 @@
           <h3>Analíse da Trilha</h3>
           <div style="border: 1px solid black; display: flex; flex-direction: column;">
 
-            <TrilhaBarChart/>
+            <TrilhaBarChart :notaMediaGeral="notaMediaGeral" :todasRespostas="numeroRespostasEnviadas"
+                            :key="atualizarGrafico"/>
 
           </div>
         </div>
@@ -49,6 +50,12 @@ export default {
       trailDescription: '',
       trialPage: this.$route.params.id,
       office: null,
+      quantRespostas: [],
+      notaMediaCap: 0,
+      notaAlunos: 0,
+      numeroRespostasEnviadas: [],
+      notaMediaGeral: [],
+      atualizarGrafico: 0,
     }
   },
   methods: {
@@ -69,6 +76,34 @@ export default {
       this.trial = data.data;
       this.trailName = this.trial.trailName;
       this.trailDescription = this.trial.trailDescription;
+
+      const meusCapitulos = this.trial.listChapter;
+      const quantCapitulos = meusCapitulos.length;
+      for (let i = 0; i < quantCapitulos; i++) {
+        let capituloId = meusCapitulos[i];
+        let dataTeste = await server.get(
+            '/teste/chapter/' + capituloId,
+            { headers: {'Authorization': `Bearer ${auth.token}`}}
+        );
+        const quantTeste = dataTeste.data.length;
+        let notaMedia = 0;
+        let quantRespostas = 0;
+        for (let j = 0; j < quantTeste; j++) {
+          let respostaCorreta = dataTeste.data[j].testeValue;
+          this.quantRespostas = dataTeste.data[j].notaQuestion;
+          this.notaMediaAlunos = 0;
+          for (let e = 0; e < this.quantRespostas.length; e++) {
+            if (this.quantRespostas[e].nota === respostaCorreta) {
+              this.notaMediaAlunos = this.notaMediaAlunos + 1;
+            }
+          }
+          quantRespostas = quantRespostas + this.quantRespostas.length;
+          notaMedia = notaMedia + this.notaMediaAlunos;
+        }
+        this.notaMediaGeral.push(notaMedia);
+        this.numeroRespostasEnviadas.push(quantRespostas);
+      }
+      this.atualizarGrafico = 1;
     },
   },
   mounted () {

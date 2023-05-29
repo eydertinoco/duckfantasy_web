@@ -13,10 +13,8 @@ import VChart, { THEME_KEY } from 'vue-echarts';
 import { ref, provide, defineProps, reactive } from 'vue';
 
 const props = defineProps({
-  capitulos: {
-    nCapitulo: Number,
-    quantAcesso: Number,
-  },
+  notaMediaGeral: [],
+  todasRespostas: [],
 });
 
 use([
@@ -32,17 +30,21 @@ provide(THEME_KEY, 'white');
 
 const option = ref({
   title: {
-    text: 'Desempenho da Trilha',
+    text: 'Desempenho Geral dos Capítulos',
     left: 'center',
   },
   xAxis: {
-    data: [`Cap 1`, 'Cap 2', 'Cap 3', 'Cap 4', 'Cap 5']
+    data: [`Instalando Python`, 'Instalação do VSCode']
   },
   yAxis: {},
   series: [
     {
       type: 'bar',
-      data: [23, 24, 18, 25, 27, 28, 25]
+      data: [props.notaMediaGeral[0], props.notaMediaGeral[1]]
+    },
+    {
+      type: 'bar',
+      data: [props.todasRespostas[0], props.todasRespostas[1]]
     },
   ]
 });
