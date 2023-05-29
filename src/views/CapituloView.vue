@@ -62,6 +62,21 @@
 
       </div>
 
+      <div class="divProfessor" v-if="office === 'Professor'">
+
+        <div style="display: flex; border: 1px solid; flex-direction: column; align-items: center; justify-content: center;">
+          <h2>Desempenho invidual de cada aluno</h2>
+          <div style="display: flex; flex-wrap: wrap;">
+            <div v-for="aluno in alunos" :key="aluno">
+              <TesteTodosAlunoPieChart :info="aluno" :key="aluno"/>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+
     </form>
   </div>
 </template>
@@ -73,10 +88,11 @@ import ChapterPieChart from "@/components/ChapterPieChart.vue";
 import TestePieChart from "@/components/TestePieChart.vue";
 import TesteQuestaoPieChart from "@/components/TesteQuestaoPieChart.vue";
 import TesteAlunoPieChart from "@/components/TesteAlunoPieChart.vue";
+import TesteTodosAlunoPieChart from "@/components/TesteTodosAlunoPieChart.vue";
 
 export default {
   name: "CapituloView",
-  components: {TesteAlunoPieChart, TesteQuestaoPieChart, TestePieChart, ChapterPieChart},
+  components: {TesteTodosAlunoPieChart, TesteAlunoPieChart, TesteQuestaoPieChart, TestePieChart, ChapterPieChart},
   data() {
     return {
       chapterTitle: '',
@@ -94,6 +110,7 @@ export default {
       alunorespondeuquestao: false,
       meusacertos: null,
       meuserros: null,
+      alunos: [],
     }
   },
   methods: {
@@ -165,10 +182,15 @@ export default {
           { headers: {'Authorization': `Bearer ${auth.token}`}}
       );
       const quantQuest = dataTeste.data.length;
+      let listaRespostas = [];
+      let gabarito = [];
       for(let i=0; i < quantQuest; i++) {
+        listaRespostas.push(dataTeste.data[i].notaQuestion);
+        gabarito.push(dataTeste.data[i].testeValue);
         let quantRespostas = dataTeste.data[i].notaQuestion.length;
         let resposta = dataTeste.data[i].testeValue;
         for(let j=0; j < quantRespostas; j++) {
+          // Informações do Aluno Logado
           if (dataTeste.data[i].notaQuestion[j].alunoId === this.userId) {
             this.alunorespondeuquestao = true;
             if (dataTeste.data[i].notaQuestion[j].nota === resposta) {
@@ -177,6 +199,7 @@ export default {
               this.meuserros = this.meuserros + 1;
             }
           }
+          // Informações do Professor pegando acertos e erros da pergunta
           if (dataTeste.data[i].notaQuestion[j].nota === resposta) {
             this.acertos = this.acertos + 1;
           } else {
@@ -185,6 +208,37 @@ export default {
         }
       }
 
+      // Informações indivuais de todos Alunos
+      if (this.office === "Professor") {
+        for(let i=0; i < listaRespostas.length; i++) {
+          for (let j=0; j < listaRespostas[i].length; j++) {
+            let acertosAluno = 0;
+            let errosAluno = 0;
+            let nomeAluno = '';
+
+            const dataAluno = await server.get(
+                '/user/' + listaRespostas[i][j].alunoId,
+                { headers: {'Authorization': `Bearer ${auth.token}`}}
+            );
+            nomeAluno = dataAluno.data.name;
+
+            for(let x=0; x < listaRespostas.length; x++) {
+              for (let e = 0; e < listaRespostas[x].length; e++) {
+                if (listaRespostas[i][j].alunoId === listaRespostas[x][e].alunoId) {
+                  if (listaRespostas[x][e].nota === gabarito[x]) {
+                    acertosAluno = acertosAluno + 1;
+                  } else {
+                    errosAluno = errosAluno + 1;
+                  }
+                }
+              }
+            }
+            let infoAluno = [nomeAluno, acertosAluno, errosAluno]
+            this.alunos.push(infoAluno);
+          }
+          break;
+        }
+      }
       this.testes = dataTeste.data;
     },
     async salvarRespostas(e) {
