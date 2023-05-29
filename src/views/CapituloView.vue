@@ -12,7 +12,7 @@
 
         <div style="display: flex; border: 1px solid; flex-direction: column; align-items: center; justify-content: center;">
           <h2>Desempenho invidual de cada questão</h2>
-          <div style="display: flex;">
+          <div style="display: flex; flex-wrap: wrap;">
             <div v-for="teste in testes" :key="teste.id">
               <TesteQuestaoPieChart :titulo="teste.testeQuestion" :respostas="teste.testeValue"
                                     :tentativas="teste.notaQuestion" :key="teste.notaQuestion"/>
@@ -34,7 +34,7 @@
           <button id="btnNegativo" type="submit" @click="acaoNegativo($event)">Não Entendi</button>
         </div>
 
-        <div class="divTeste">
+        <div class="divTeste" v-if="alunorespondeuquestao === false" :key="alunorespondeuquestao">
 
               <div>
                 <div>Lista de Atividade</div>
@@ -54,6 +54,12 @@
 
         </div>
 
+        <div class="divTeste" v-if="alunorespondeuquestao === true" :key="alunorespondeuquestao">
+
+          <TesteAlunoPieChart :acertos="meusacertos" :erros="meuserros"/>
+
+        </div>
+
       </div>
 
     </form>
@@ -66,17 +72,18 @@ import server from "@/services/config";
 import ChapterPieChart from "@/components/ChapterPieChart.vue";
 import TestePieChart from "@/components/TestePieChart.vue";
 import TesteQuestaoPieChart from "@/components/TesteQuestaoPieChart.vue";
+import TesteAlunoPieChart from "@/components/TesteAlunoPieChart.vue";
 
 export default {
   name: "CapituloView",
-  components: {TesteQuestaoPieChart, TestePieChart, ChapterPieChart},
+  components: {TesteAlunoPieChart, TesteQuestaoPieChart, TestePieChart, ChapterPieChart},
   data() {
     return {
-      trilhaId: '645e2f3b9188788071e320f9',
       chapterTitle: '',
       chapterText: '',
       chapterId: '',
       capituloPontuacao: [],
+      userId: null,
       office: null,
       positivo: null,
       negativo: null,
@@ -84,6 +91,9 @@ export default {
       titulo: null,
       acertos: null,
       erros: null,
+      alunorespondeuquestao: false,
+      meusacertos: null,
+      meuserros: null,
     }
   },
   methods: {
@@ -123,6 +133,7 @@ export default {
           '/auth/me',
           { headers: {'Authorization': `Bearer ${auth.token}`}}
       );
+      this.userId = dataUser.data.id;
       this.office = dataUser.data.office;
       await this.getCapitulo(auth);
       await this.getTeste(auth);
@@ -158,6 +169,14 @@ export default {
         let quantRespostas = dataTeste.data[i].notaQuestion.length;
         let resposta = dataTeste.data[i].testeValue;
         for(let j=0; j < quantRespostas; j++) {
+          if (dataTeste.data[i].notaQuestion[j].alunoId === this.userId) {
+            this.alunorespondeuquestao = true;
+            if (dataTeste.data[i].notaQuestion[j].nota === resposta) {
+              this.meusacertos = this.meusacertos + 1;
+            } else {
+              this.meuserros = this.meuserros + 1;
+            }
+          }
           if (dataTeste.data[i].notaQuestion[j].nota === resposta) {
             this.acertos = this.acertos + 1;
           } else {
