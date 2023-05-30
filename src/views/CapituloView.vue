@@ -277,6 +277,7 @@ export default {
           }
         }
       }
+      window.location.reload();
     }
   },
   mounted () {

@@ -61,6 +61,7 @@ export default {
             { headers: {'Authorization': `Bearer ${auth.token}`}}
         );
         this.$forceUpdate();
+        window.location.reload();
       } catch (error) {
         console.log(error?.response?.data);
       }
